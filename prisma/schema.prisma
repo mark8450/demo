@@ -1,0 +1,207 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         String   @id @default(cuid())
+  name       String
+  email      String   @unique
+  password   String
+  role       String   // 'teacher', 'student', 'parent'
+  parentCode String?  @unique // Unique code for parents to link to students
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  // Relations
+  teachingClasses    Class[]           @relation("TeacherClasses")
+  studentClasses     StudentClass[]
+  parentLinks        ParentLink[]     @relation("ParentLinks")
+  parentedLinks      ParentLink[]     @relation("StudentLinks")
+  createdLessons     Lesson[]
+  createdHomework    Homework[]
+  createdQuizzes     Quiz[]
+  createdAnnouncements Announcement[]
+  submissions        Submission[]
+  quizResults        QuizResult[]
+  sentMessages       Message[]        @relation("SentMessages")
+  receivedMessages   Message[]        @relation("ReceivedMessages")
+}
+
+model Class {
+  id         String   @id @default(cuid())
+  teacherId  String
+  name       String
+  grade      String
+  classCode  String   @unique
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  // Relations
+  teacher       User              @relation("TeacherClasses", fields: [teacherId], references: [id], onDelete: Cascade)
+  studentClasses StudentClass[]
+  lessons       Lesson[]
+  homework      Homework[]
+  quizzes       Quiz[]
+  announcements Announcement[]
+}
+
+model StudentClass {
+  id        String   @id @default(cuid())
+  studentId String
+  classId   String
+  createdAt DateTime @default(now())
+
+  // Relations
+  student User  @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  class   Class @relation(fields: [classId], references: [id], onDelete: Cascade)
+
+  @@unique([studentId, classId])
+}
+
+model ParentLink {
+  id         String   @id @default(cuid())
+  parentId   String
+  studentId  String
+  approved   Boolean  @default(false)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  // Relations
+  parent  User  @relation("ParentLinks", fields: [parentId], references: [id], onDelete: Cascade)
+  student User  @relation("StudentLinks", fields: [studentId], references: [id], onDelete: Cascade)
+
+  @@unique([parentId, studentId])
+}
+
+model Lesson {
+  id        String   @id @default(cuid())
+  classId   String
+  teacherId String
+  title     String
+  fileUrl   String?
+  fileType  String?  // 'pdf', 'video', 'text'
+  content   String?  // For text lessons
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  class   Class @relation(fields: [classId], references: [id], onDelete: Cascade)
+  teacher User  @relation(fields: [teacherId], references: [id], onDelete: Cascade)
+}
+
+model Homework {
+  id          String   @id @default(cuid())
+  classId     String
+  teacherId   String
+  title       String
+  instructions String
+  deadline    DateTime
+  fileUrl     String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  class       Class         @relation(fields: [classId], references: [id], onDelete: Cascade)
+  teacher     User          @relation(fields: [teacherId], references: [id], onDelete: Cascade)
+  submissions Submission[]
+}
+
+model Submission {
+  id              String   @id @default(cuid())
+  homeworkId      String
+  studentId       String
+  fileUrl         String?
+  content         String?  // For text submissions
+  teacherFeedback String?
+  grade           Int?
+  submittedAt     DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  // Relations
+  homework Homework @relation(fields: [homeworkId], references: [id], onDelete: Cascade)
+  student  User     @relation(fields: [studentId], references: [id], onDelete: Cascade)
+}
+
+model Quiz {
+  id        String   @id @default(cuid())
+  classId   String
+  teacherId String
+  title     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  class    Class           @relation(fields: [classId], references: [id], onDelete: Cascade)
+  teacher  User            @relation(fields: [teacherId], references: [id], onDelete: Cascade)
+  questions QuizQuestion[]
+  results   QuizResult[]
+}
+
+model QuizQuestion {
+  id            String   @id @default(cuid())
+  quizId        String
+  question      String
+  type          String   // 'multiple_choice', 'true_false', 'short_answer'
+  options       String?  // JSON string for multiple choice options
+  correctAnswer String
+  points        Int      @default(1)
+  createdAt     DateTime @default(now())
+
+  // Relations
+  quiz Quiz @relation(fields: [quizId], references: [id], onDelete: Cascade)
+}
+
+model QuizResult {
+  id        String   @id @default(cuid())
+  quizId    String
+  studentId String
+  score     Int
+  total     Int
+  answers   String   // JSON string of student answers
+  createdAt DateTime @default(now())
+
+  // Relations
+  quiz    Quiz @relation(fields: [quizId], references: [id], onDelete: Cascade)
+  student User @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  @@unique([quizId, studentId])
+}
+
+model Announcement {
+  id        String   @id @default(cuid())
+  classId   String
+  teacherId String
+  message   String
+  fileUrl   String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  class   Class @relation(fields: [classId], references: [id], onDelete: Cascade)
+  teacher User  @relation(fields: [teacherId], references: [id], onDelete: Cascade)
+}
+
+model Message {
+  id         String   @id @default(cuid())
+  senderId   String
+  receiverId String
+  content    String
+  fileUrl    String?
+  read       Boolean  @default(false)
+  createdAt  DateTime @default(now())
+
+  // Relations
+  sender   User @relation("SentMessages", fields: [senderId], references: [id], onDelete: Cascade)
+  receiver User @relation("ReceivedMessages", fields: [receiverId], references: [id], onDelete: Cascade)
+}
