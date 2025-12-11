@@ -133,13 +133,13 @@ export default function TeacherDashboard() {
   if (showMessages) {
     return (
       <div>
-        <div className="bg-white border-b border-gray-200 p-4">
+        <div className="bg-card border-border p-4">
           <div className="max-w-7xl mx-auto flex justify-between items-center">
             <div className="flex items-center space-x-2">
               <Button
                 variant="ghost"
                 onClick={() => setShowMessages(false)}
-                className="text-[#3A6EA5]"
+                className="text-primary"
               >
                 ← Back to Dashboard
               </Button>
@@ -147,7 +147,7 @@ export default function TeacherDashboard() {
             <Button
               variant="ghost"
               onClick={logout}
-              className="text-red-600 hover:text-red-700"
+              className="text-destructive hover:text-destructive-foreground"
             >
               <LogOut className="w-4 h-4 mr-2" />
               Logout
@@ -168,22 +168,22 @@ export default function TeacherDashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-[#F7F9FC] p-6">
+    <div className="min-h-screen bg-background p-6">
       {/* Header */}
       <div className="max-w-7xl mx-auto mb-8">
         <div className="flex justify-between items-center">
           <div>
-            <h1 className="text-3xl font-bold text-[#1A1A1A] mb-2">
+            <h1 className="text-3xl font-bold text-foreground mb-2">
               Welcome back, {user?.name}!
             </h1>
-            <p className="text-gray-600">Manage your classes and track student progress</p>
+            <p className="text-muted-foreground">Manage your classes and track student progress</p>
           </div>
           
           <div className="flex space-x-3">
             <Button 
               onClick={() => setShowMessages(true)}
               variant="outline"
-              className="border-[#3A6EA5] text-[#3A6EA5] hover:bg-[#3A6EA5] hover:text-white"
+              className="border-primary text-primary hover:bg-primary hover:text-primary-foreground"
             >
               <MessageSquare className="w-4 h-4 mr-2" />
               Messages
@@ -192,7 +192,7 @@ export default function TeacherDashboard() {
             <Button 
               onClick={logout}
               variant="outline"
-              className="border-red-600 text-red-600 hover:bg-red-600 hover:text-white"
+              className="border-destructive text-destructive hover:bg-destructive hover:text-primary-foreground"
             >
               <LogOut className="w-4 h-4 mr-2" />
               Logout
@@ -200,7 +200,7 @@ export default function TeacherDashboard() {
             
             <Dialog open={createClassOpen} onOpenChange={setCreateClassOpen}>
               <DialogTrigger asChild>
-                <Button className="bg-[#3A6EA5] hover:bg-[#2E5A8A]">
+                <Button className="bg-primary hover:bg-primary/90 text-primary-foreground">
                   <Plus className="w-4 h-4 mr-2" />
                   Create Class
                 </Button>
@@ -230,7 +230,7 @@ export default function TeacherDashboard() {
                       required
                     />
                   </div>
-                  <Button type="submit" className="w-full bg-[#5DBB63] hover:bg-[#4FA052]">
+                  <Button type="submit" className="w-full bg-secondary hover:bg-secondary/90 text-secondary-foreground">
                     Create Class
                   </Button>
                 </form>
@@ -242,29 +242,29 @@ export default function TeacherDashboard() {
 
       {/* Quick Stats */}
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-        <Card className="bg-white">
+        <Card className="bg-card">
           <CardContent className="p-6">
             <div className="flex items-center space-x-3">
-              <div className="w-12 h-12 bg-[#3A6EA5] rounded-lg flex items-center justify-center">
-                <Users className="w-6 h-6 text-white" />
+              <div className="w-12 h-12 bg-primary rounded-lg flex items-center justify-center">
+                <Users className="w-6 h-6 text-primary-foreground" />
               </div>
               <div>
-                <p className="text-sm text-gray-600">Total Classes</p>
-                <p className="text-2xl font-bold text-[#1A1A1A]">{classes.length}</p>
+                <p className="text-sm text-muted-foreground">Total Classes</p>
+                <p className="text-2xl font-bold text-foreground">{classes.length}</p>
               </div>
             </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-white">
+        <Card className="bg-card">
           <CardContent className="p-6">
             <div className="flex items-center space-x-3">
-              <div className="w-12 h-12 bg-[#5DBB63] rounded-lg flex items-center justify-center">
-                <BookOpen className="w-6 h-6 text-white" />
+              <div className="w-12 h-12 bg-secondary rounded-lg flex items-center justify-center">
+                <BookOpen className="w-6 h-6 text-secondary-foreground" />
               </div>
               <div>
-                <p className="text-sm text-gray-600">Total Students</p>
-                <p className="text-2xl font-bold text-[#1A1A1A]">
+                <p className="text-sm text-muted-foreground">Total Students</p>
+                <p className="text-2xl font-bold text-foreground">
                   {classes.reduce((acc, cls) => acc + cls.studentClasses.length, 0)}
                 </p>
               </div>
@@ -272,15 +272,15 @@ export default function TeacherDashboard() {
           </CardContent>
         </Card>
 
-        <Card className="bg-white">
+        <Card className="bg-card">
           <CardContent className="p-6">
             <div className="flex items-center space-x-3">
-              <div className="w-12 h-12 bg-[#FFC857] rounded-lg flex items-center justify-center">
-                <FileText className="w-6 h-6 text-white" />
+              <div className="w-12 h-12 bg-accent rounded-lg flex items-center justify-center">
+                <FileText className="w-6 h-6 text-accent-foreground" />
               </div>
               <div>
-                <p className="text-sm text-gray-600">Total Lessons</p>
-                <p className="text-2xl font-bold text-[#1A1A1A]">
+                <p className="text-sm text-muted-foreground">Total Lessons</p>
+                <p className="text-2xl font-bold text-foreground">
                   {classes.reduce((acc, cls) => acc + cls._count.lessons, 0)}
                 </p>
               </div>
@@ -288,15 +288,15 @@ export default function TeacherDashboard() {
           </CardContent>
         </Card>
 
-        <Card className="bg-white">
+        <Card className="bg-card">
           <CardContent className="p-6">
             <div className="flex items-center space-x-3">
-              <div className="w-12 h-12 bg-[#8B5CF6] rounded-lg flex items-center justify-center">
-                <MessageSquare className="w-6 h-6 text-white" />
+              <div className="w-12 h-12 bg-primary/80 rounded-lg flex items-center justify-center">
+                <MessageSquare className="w-6 h-6 text-primary-foreground" />
               </div>
               <div>
-                <p className="text-sm text-gray-600">Announcements</p>
-                <p className="text-2xl font-bold text-[#1A1A1A]">
+                <p className="text-sm text-muted-foreground">Announcements</p>
+                <p className="text-2xl font-bold text-foreground">
                   {classes.reduce((acc, cls) => acc + cls._count.announcements, 0)}
                 </p>
               </div>

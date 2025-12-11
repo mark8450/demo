@@ -100,20 +100,20 @@ export default function StudentDashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-[#F7F9FC] p-6">
+    <div className="min-h-screen bg-background p-6">
       {/* Header */}
       <div className="max-w-7xl mx-auto mb-8">
         <div className="flex justify-between items-center">
           <div>
-            <h1 className="text-3xl font-bold text-[#1A1A1A] mb-2">
+            <h1 className="text-3xl font-bold text-foreground mb-2">
               Welcome back, {user?.name}!
             </h1>
-            <p className="text-gray-600">Track your assignments and stay updated with your classes</p>
+            <p className="text-muted-foreground">Track your assignments and stay updated with your classes</p>
           </div>
           <Button 
             onClick={logout}
             variant="outline"
-            className="border-red-600 text-red-600 hover:bg-red-600 hover:text-white"
+            className="border-destructive text-destructive hover:bg-destructive hover:text-primary-foreground"
           >
             <LogOut className="w-4 h-4 mr-2" />
             Logout
@@ -123,29 +123,29 @@ export default function StudentDashboard() {
 
       {/* Quick Stats */}
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-        <Card className="bg-white">
+        <Card className="bg-card">
           <CardContent className="p-6">
             <div className="flex items-center space-x-3">
-              <div className="w-12 h-12 bg-[#3A6EA5] rounded-lg flex items-center justify-center">
-                <BookOpen className="w-6 h-6 text-white" />
+              <div className="w-12 h-12 bg-primary rounded-lg flex items-center justify-center">
+                <BookOpen className="w-6 h-6 text-primary-foreground" />
               </div>
               <div>
-                <p className="text-sm text-gray-600">My Classes</p>
-                <p className="text-2xl font-bold text-[#1A1A1A]">{studentClasses.length}</p>
+                <p className="text-sm text-muted-foreground">My Classes</p>
+                <p className="text-2xl font-bold text-foreground">{studentClasses.length}</p>
               </div>
             </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-white">
+        <Card className="bg-card">
           <CardContent className="p-6">
             <div className="flex items-center space-x-3">
-              <div className="w-12 h-12 bg-[#5DBB63] rounded-lg flex items-center justify-center">
-                <FileText className="w-6 h-6 text-white" />
+              <div className="w-12 h-12 bg-secondary rounded-lg flex items-center justify-center">
+                <FileText className="w-6 h-6 text-secondary-foreground" />
               </div>
               <div>
-                <p className="text-sm text-gray-600">Total Homework</p>
-                <p className="text-2xl font-bold text-[#1A1A1A]">
+                <p className="text-sm text-muted-foreground">Total Homework</p>
+                <p className="text-2xl font-bold text-foreground">
                   {studentClasses.reduce((acc, cls) => acc + cls.class._count.homework, 0)}
                 </p>
               </div>
@@ -153,15 +153,15 @@ export default function StudentDashboard() {
           </CardContent>
         </Card>
 
-        <Card className="bg-white">
+        <Card className="bg-card">
           <CardContent className="p-6">
             <div className="flex items-center space-x-3">
-              <div className="w-12 h-12 bg-[#FFC857] rounded-lg flex items-center justify-center">
-                <Calendar className="w-6 h-6 text-white" />
+              <div className="w-12 h-12 bg-accent rounded-lg flex items-center justify-center">
+                <Calendar className="w-6 h-6 text-accent-foreground" />
               </div>
               <div>
-                <p className="text-sm text-gray-600">Total Quizzes</p>
-                <p className="text-2xl font-bold text-[#1A1A1A]">
+                <p className="text-sm text-muted-foreground">Total Quizzes</p>
+                <p className="text-2xl font-bold text-foreground">
                   {studentClasses.reduce((acc, cls) => acc + cls.class._count.quizzes, 0)}
                 </p>
               </div>
@@ -169,15 +169,15 @@ export default function StudentDashboard() {
           </CardContent>
         </Card>
 
-        <Card className="bg-white">
+        <Card className="bg-card">
           <CardContent className="p-6">
             <div className="flex items-center space-x-3">
-              <div className="w-12 h-12 bg-[#8B5CF6] rounded-lg flex items-center justify-center">
-                <Trophy className="w-6 h-6 text-white" />
+              <div className="w-12 h-12 bg-primary/80 rounded-lg flex items-center justify-center">
+                <Trophy className="w-6 h-6 text-primary-foreground" />
               </div>
               <div>
-                <p className="text-sm text-gray-600">Average Grade</p>
-                <p className="text-2xl font-bold text-[#1A1A1A]">--%</p>
+                <p className="text-sm text-muted-foreground">Average Grade</p>
+                <p className="text-2xl font-bold text-foreground">--%</p>
               </div>
             </div>
           </CardContent>
@@ -187,33 +187,33 @@ export default function StudentDashboard() {
       {/* Main Content */}
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2 space-y-6">
-          <Card className="bg-white">
+          <Card className="bg-card">
             <CardHeader>
-              <CardTitle className="text-[#1A1A1A]">My Classes</CardTitle>
+              <CardTitle className="text-foreground">My Classes</CardTitle>
               <CardDescription>Classes you're enrolled in</CardDescription>
             </CardHeader>
             <CardContent>
               {studentClasses.length === 0 ? (
                 <div className="text-center py-8">
-                  <BookOpen className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                  <h3 className="text-lg font-semibold text-[#1A1A1A] mb-2">No classes yet</h3>
-                  <p className="text-gray-600">Join a class to get started</p>
+                  <BookOpen className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
+                  <h3 className="text-lg font-semibold text-foreground mb-2">No classes yet</h3>
+                  <p className="text-muted-foreground">Join a class to get started</p>
                 </div>
               ) : (
                 <div className="space-y-4">
                   {studentClasses.map((studentClass) => (
-                    <div key={studentClass.id} className="p-4 bg-gray-50 rounded-lg">
+                    <div key={studentClass.id} className="p-4 bg-secondary/20 rounded-lg border border-secondary/30">
                       <div className="flex justify-between items-start">
                         <div>
-                          <h4 className="font-semibold text-[#1A1A1A]">{studentClass.class.name}</h4>
-                          <p className="text-sm text-gray-600">{studentClass.class.grade}</p>
-                          <p className="text-xs text-gray-500">Teacher: {studentClass.class.teacher.name}</p>
+                          <h4 className="font-semibold text-foreground">{studentClass.class.name}</h4>
+                          <p className="text-sm text-muted-foreground">{studentClass.class.grade}</p>
+                          <p className="text-xs text-muted-foreground">Teacher: {studentClass.class.teacher.name}</p>
                         </div>
                         <div className="text-right">
-                          <p className="text-xs text-gray-500 mb-2">Joined {new Date(studentClass.createdAt).toLocaleDateString()}</p>
+                          <p className="text-xs text-muted-foreground mb-2">Joined {new Date(studentClass.createdAt).toLocaleDateString()}</p>
                           <Button 
                             size="sm" 
-                            className="bg-[#3A6EA5] hover:bg-[#2E5A8A]"
+                            className="bg-primary hover:bg-primary/90 text-primary-foreground"
                             onClick={() => window.location.href = `/student/class/${studentClass.classId}`}
                           >
                             View Class
@@ -229,9 +229,9 @@ export default function StudentDashboard() {
         </div>
 
         <div className="space-y-6">
-          <Card className="bg-white">
+          <Card className="bg-card">
             <CardHeader>
-              <CardTitle className="text-[#1A1A1A]">Join a Class</CardTitle>
+              <CardTitle className="text-foreground">Join a Class</CardTitle>
               <CardDescription>Enter a class code to join</CardDescription>
             </CardHeader>
             <CardContent>
@@ -245,7 +245,7 @@ export default function StudentDashboard() {
                 />
                 <Button 
                   type="submit" 
-                  className="w-full bg-[#5DBB63] hover:bg-[#4FA052]"
+                  className="w-full bg-secondary hover:bg-secondary/90 text-secondary-foreground"
                   disabled={joiningClass}
                 >
                   {joiningClass ? 'Joining...' : 'Join Class'}
@@ -254,9 +254,9 @@ export default function StudentDashboard() {
             </CardContent>
           </Card>
 
-          <Card className="bg-white">
+          <Card className="bg-card">
             <CardHeader>
-              <CardTitle className="text-[#1A1A1A]">Quick Actions</CardTitle>
+              <CardTitle className="text-foreground">Quick Actions</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-3">
