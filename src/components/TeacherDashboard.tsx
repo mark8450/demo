@@ -58,6 +58,11 @@ export default function TeacherDashboard() {
       if (response.ok) {
         const data = await response.json()
         setClasses(data.classes)
+      } else if (response.status === 401) {
+        // 401 is expected if not authenticated, don't show error toast
+        console.log('Not authenticated for classes fetch')
+      } else {
+        toast.error('Failed to fetch classes')
       }
     } catch (error) {
       toast.error('Failed to fetch classes')

@@ -76,6 +76,11 @@ export default function MessagingSystem() {
       if (response.ok) {
         const data = await response.json()
         setConversations(data.conversations)
+      } else if (response.status === 401) {
+        // 401 is expected if not authenticated, don't show error toast
+        console.log('Not authenticated for conversations fetch')
+      } else {
+        toast.error('Failed to fetch conversations')
       }
     } catch (error) {
       toast.error('Failed to fetch conversations')
@@ -90,6 +95,11 @@ export default function MessagingSystem() {
       if (response.ok) {
         const data = await response.json()
         setMessages(data.messages)
+      } else if (response.status === 401) {
+        // 401 is expected if not authenticated, don't show error toast
+        console.log('Not authenticated for messages fetch')
+      } else {
+        toast.error('Failed to fetch messages')
       }
     } catch (error) {
       toast.error('Failed to fetch messages')

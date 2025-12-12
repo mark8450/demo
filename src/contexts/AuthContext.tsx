@@ -35,8 +35,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         const data = await response.json()
         setUser(data.user)
       }
+      // Completely silence 401 responses - they're expected when not logged in
     } catch (error) {
-      console.error('Auth check failed:', error)
+      // Only log actual network errors, not HTTP status errors
+      if (error instanceof TypeError) {
+        console.error('Network error during auth check:', error)
+      }
     } finally {
       setLoading(false)
     }
