@@ -64,13 +64,13 @@ export default function CreateAnnouncementModal({ isOpen, onClose, classId, onSu
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[500px]">
+      <DialogContent className="sm:max-w-[500px] backdrop-blur-sm bg-background/95 border border-primary/20 shadow-2xl shadow-primary/20 rounded-2xl">
         <DialogHeader>
-          <DialogTitle>Create New Announcement</DialogTitle>
+          <DialogTitle className="text-xl font-semibold text-foreground animate-title-glow">Create New Announcement</DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="message">Announcement Message</Label>
+            <Label htmlFor="message" className="text-sm font-medium">Announcement Message</Label>
             <Textarea
               id="message"
               placeholder="Enter your announcement message..."
@@ -78,25 +78,36 @@ export default function CreateAnnouncementModal({ isOpen, onClose, classId, onSu
               onChange={(e) => setFormData({ ...formData, message: e.target.value })}
               rows={4}
               required
+              className="border-primary/20 focus:border-primary transition-colors resize-none"
             />
           </div>
-
+          
           <div className="space-y-2">
-            <Label htmlFor="fileUrl">File URL (Optional)</Label>
+            <Label htmlFor="fileUrl" className="text-sm font-medium">File URL (Optional)</Label>
             <Input
               id="fileUrl"
               type="url"
               placeholder="https://example.com/document.pdf"
               value={formData.fileUrl}
               onChange={(e) => setFormData({ ...formData, fileUrl: e.target.value })}
+              className="border-primary/20 focus:border-primary transition-colors"
             />
           </div>
-
+          
           <div className="flex justify-end space-x-3 pt-4">
-            <Button type="button" variant="outline" onClick={onClose} className="border-border text-foreground hover:bg-accent hover:text-accent-foreground">
+            <Button 
+              type="button" 
+              variant="outline" 
+              onClick={onClose} 
+              className="border-primary/20 text-primary hover:bg-primary/10 hover:text-primary transition-all duration-300"
+            >
               Cancel
             </Button>
-            <Button type="submit" disabled={loading} className="bg-primary/80 hover:bg-primary/70 text-primary-foreground">
+            <Button 
+              type="submit" 
+              disabled={loading}
+              className="bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-primary-foreground border-0 shadow-lg shadow-primary/25 hover:shadow-primary/40 transition-all duration-300"
+            >
               {loading ? 'Posting...' : 'Post Announcement'}
             </Button>
           </div>

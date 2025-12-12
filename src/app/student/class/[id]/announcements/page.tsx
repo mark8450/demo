@@ -44,52 +44,92 @@ export default function StudentAnnouncementsPage() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-[#3A6EA5]"></div>
+      <div className="flex items-center justify-center min-h-screen bg-background overflow-hidden relative">
+        {/* Background Grid Pattern */}
+        <div className="absolute inset-0 opacity-20">
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5" style={{
+            backgroundImage: `
+              linear-gradient(rgba(var(--primary), 0.1) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(var(--primary), 0.1) 1px, transparent 1px)
+            `,
+            backgroundSize: '50px 50px'
+          }}></div>
+        </div>
+        
+        {/* Animated Background Orbs */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute top-20 left-20 w-96 h-96 bg-primary/20 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute top-40 right-20 w-[500px] h-[500px] bg-accent/15 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+        </div>
+        
+        <div className="relative z-20">
+          <div className="relative">
+            <div className="animate-spin rounded-full h-16 w-16 border-2 border-muted"></div>
+            <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-primary border-r-transparent border-b-transparent border-l-transparent absolute top-0"></div>
+          </div>
+        </div>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-[#F7F9FC] p-6">
+    <div className="min-h-screen bg-background overflow-hidden relative p-6">
+      {/* Background Grid Pattern */}
+      <div className="absolute inset-0 opacity-20">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5" style={{
+          backgroundImage: `
+            linear-gradient(rgba(var(--primary), 0.1) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(var(--primary), 0.1) 1px, transparent 1px)
+          `,
+          backgroundSize: '50px 50px'
+        }}></div>
+      </div>
+
+      {/* Animated Background Orbs */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute top-20 left-20 w-96 h-96 bg-primary/20 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute top-40 right-20 w-[500px] h-[500px] bg-accent/15 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+        <div className="absolute bottom-20 left-1/2 w-80 h-80 bg-primary/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '4s' }}></div>
+      </div>
+
       {/* Header */}
-      <div className="max-w-7xl mx-auto mb-8">
+      <div className="max-w-7xl mx-auto mb-8 relative z-20">
         <div className="flex items-center space-x-4">
           <Button
             variant="ghost"
             onClick={() => router.back()}
-            className="text-[#3A6EA5]"
+            className="text-primary hover:bg-primary/10 transition-all duration-300"
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
             Back to Class
           </Button>
           <div>
-            <h1 className="text-3xl font-bold text-[#1A1A1A]">Announcements</h1>
-            <p className="text-gray-600">Stay updated with class news and updates</p>
+            <h1 className="text-4xl font-bold text-foreground animate-title-glow">Announcements</h1>
+            <p className="text-xl text-muted-foreground">Stay updated with class news and updates</p>
           </div>
         </div>
       </div>
 
       {/* Announcements List */}
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-7xl mx-auto relative z-20">
         {announcements.length === 0 ? (
-          <Card className="bg-white text-center p-12">
-            <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Calendar className="w-8 h-8 text-gray-400" />
+          <Card className="bg-gradient-to-br from-background to-background/80 backdrop-blur-sm border border-primary/20 shadow-2xl shadow-primary/20 text-center p-12">
+            <div className="w-16 h-16 bg-gradient-to-br from-primary/20 to-accent/20 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg shadow-primary/25">
+              <Calendar className="w-8 h-8 text-primary" />
             </div>
-            <h3 className="text-xl font-semibold text-[#1A1A1A] mb-2">No announcements yet</h3>
-            <p className="text-gray-600">Your teacher hasn't posted any announcements for this class yet.</p>
+            <h3 className="text-xl font-semibold text-foreground mb-2">No announcements yet</h3>
+            <p className="text-muted-foreground">Your teacher hasn't posted any announcements for this class yet.</p>
           </Card>
         ) : (
           <div className="space-y-4">
             {announcements.map((announcement) => (
-              <Card key={announcement.id} className="bg-white hover:shadow-lg transition-shadow">
+              <Card key={announcement.id} className="bg-gradient-to-br from-background to-background/80 backdrop-blur-sm border border-primary/20 shadow-lg shadow-primary/10 hover:shadow-xl hover:shadow-primary/20 transition-all duration-300 hover:scale-[1.02]">
                 <CardHeader>
                   <div className="flex justify-between items-start">
                     <div className="flex-1">
-                      <CardTitle className="text-[#1A1A1A]">Class Announcement</CardTitle>
+                      <CardTitle className="text-lg text-foreground">Class Announcement</CardTitle>
                       <CardDescription className="flex items-center space-x-2 mt-1">
-                        <span className="text-xs text-gray-500">
+                        <span className="text-xs text-muted-foreground">
                           Posted {new Date(announcement.createdAt).toLocaleDateString()}
                         </span>
                       </CardDescription>
@@ -98,18 +138,17 @@ export default function StudentAnnouncementsPage() {
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
-                    <div className="p-4 bg-gray-50 rounded-lg">
-                      <p className="text-gray-700 leading-relaxed">
+                    <div className="p-4 bg-gradient-to-br from-primary/10 to-accent/10 rounded-lg backdrop-blur-sm">
+                      <p className="text-foreground leading-relaxed">
                         {announcement.message}
                       </p>
                     </div>
-
                     {announcement.fileUrl && (
-                      <div>
-                        <h4 className="font-medium text-[#1A1A1A] mb-2">Attachment</h4>
+                      <div className="flex items-center space-x-3">
+                        <h4 className="font-medium text-foreground mb-2">Attachment</h4>
                         <Button
                           variant="outline"
-                          className="w-full"
+                          className="w-full border-primary/20 text-primary hover:bg-primary/10 hover:text-primary transition-all duration-300"
                           onClick={() => window.open(announcement.fileUrl, '_blank')}
                         >
                           <FileText className="w-4 h-4 mr-2" />
@@ -124,6 +163,22 @@ export default function StudentAnnouncementsPage() {
           </div>
         )}
       </div>
+
+      {/* Custom Styles */}
+      <style jsx>{`
+        @keyframes title-glow {
+          0%, 100% { 
+            text-shadow: 0 0 20px rgba(var(--primary), 0.5); 
+          }
+          50% { 
+            text-shadow: 0 0 30px rgba(var(--primary), 0.8); 
+          }
+        }
+
+        .animate-title-glow {
+          animation: title-glow 3s ease-in-out infinite;
+        }
+      `}</style>
     </div>
   )
 }

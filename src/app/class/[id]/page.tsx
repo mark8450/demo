@@ -161,64 +161,116 @@ export default function ClassDetailPage() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-[#3A6EA5]"></div>
+      <div className="flex items-center justify-center min-h-screen bg-background overflow-hidden relative">
+        {/* Background Grid Pattern */}
+        <div className="absolute inset-0 opacity-20">
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5" style={{
+            backgroundImage: `
+              linear-gradient(rgba(var(--primary), 0.1) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(var(--primary), 0.1) 1px, transparent 1px)
+            `,
+            backgroundSize: '50px 50px'
+          }}></div>
+        </div>
+        
+        {/* Animated Background Orbs */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute top-20 left-20 w-96 h-96 bg-primary/20 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute top-40 right-20 w-[500px] h-[500px] bg-accent/15 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+        </div>
+        
+        <div className="relative z-20">
+          <div className="relative">
+            <div className="animate-spin rounded-full h-16 w-16 border-2 border-muted"></div>
+            <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-primary border-r-transparent border-b-transparent border-l-transparent absolute top-0"></div>
+          </div>
+        </div>
       </div>
     )
   }
 
   if (!classDetails) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold text-[#1A1A1A] mb-4">Class not found</h1>
-          <Button onClick={() => router.back()} className="bg-[#3A6EA5] hover:bg-[#2E5A8A]">
-            Go Back
-          </Button>
+      <div className="flex items-center justify-center min-h-screen bg-background overflow-hidden relative">
+        {/* Background Grid Pattern */}
+        <div className="absolute inset-0 opacity-20">
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5" style={{
+            backgroundImage: `
+              linear-gradient(rgba(var(--primary), 0.1) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(var(--primary), 0.1) 1px, transparent 1px)
+            `,
+            backgroundSize: '50px 50px'
+          }}></div>
+        </div>
+        
+        <div className="relative z-20">
+          <div className="text-center">
+            <h1 className="text-2xl font-bold text-foreground mb-4">Class not found</h1>
+            <Button onClick={() => router.back()} className="bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-primary-foreground border-0 shadow-lg shadow-primary/25">
+              Go Back
+            </Button>
+          </div>
         </div>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-[#F7F9FC] p-6">
+    <div className="min-h-screen bg-background overflow-hidden relative p-6">
+      {/* Background Grid Pattern */}
+      <div className="absolute inset-0 opacity-20">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5" style={{
+          backgroundImage: `
+            linear-gradient(rgba(var(--primary), 0.1) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(var(--primary), 0.1) 1px, transparent 1px)
+          `,
+          backgroundSize: '50px 50px'
+        }}></div>
+      </div>
+
+      {/* Animated Background Orbs */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute top-20 left-20 w-96 h-96 bg-primary/20 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute top-40 right-20 w-[500px] h-[500px] bg-accent/15 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+        <div className="absolute bottom-20 left-1/2 w-80 h-80 bg-primary/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '4s' }}></div>
+      </div>
       {/* Header */}
-      <div className="max-w-7xl mx-auto mb-8">
+      <div className="max-w-7xl mx-auto mb-8 relative z-20">
         <div className="flex items-center space-x-4">
           <Button
             variant="ghost"
             onClick={() => router.back()}
-            className="text-[#3A6EA5]"
+            className="text-primary hover:bg-primary/10 transition-all duration-300"
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
             Back to Dashboard
           </Button>
           <div>
-            <h1 className="text-3xl font-bold text-[#1A1A1A]">{classDetails.name}</h1>
-            <p className="text-gray-600">{classDetails.grade} • Class Code: {classDetails.classCode}</p>
+            <h1 className="text-4xl font-bold text-foreground animate-title-glow">{classDetails.name}</h1>
+            <p className="text-xl text-muted-foreground">{classDetails.grade} • Class Code: {classDetails.classCode}</p>
           </div>
         </div>
       </div>
 
       {/* Class Info */}
-      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8 relative z-20">
         <div className="lg:col-span-2">
-          <Card className="bg-white">
+          <Card className="bg-gradient-to-br from-background to-background/80 backdrop-blur-sm border border-primary/20 shadow-lg shadow-primary/10">
             <CardHeader>
-              <CardTitle className="text-[#1A1A1A]">Class Information</CardTitle>
+              <CardTitle className="text-xl font-semibold text-foreground animate-title-glow">Class Information</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <h4 className="font-semibold text-[#1A1A1A] mb-2">Teacher</h4>
-                  <p className="text-gray-600">{classDetails.teacher.name}</p>
-                  <p className="text-sm text-gray-500">{classDetails.teacher.email}</p>
+                  <h4 className="font-semibold text-foreground mb-2">Teacher</h4>
+                  <p className="text-muted-foreground">{classDetails.teacher.name}</p>
+                  <p className="text-sm text-muted-foreground">{classDetails.teacher.email}</p>
                 </div>
                 <div>
-                  <h4 className="font-semibold text-[#1A1A1A] mb-2">Class Details</h4>
-                  <p className="text-gray-600">Grade: {classDetails.grade}</p>
-                  <p className="text-gray-600">Class Code: {classDetails.classCode}</p>
-                  <p className="text-gray-600">Created: {new Date(classDetails.createdAt).toLocaleDateString()}</p>
+                  <h4 className="font-semibold text-foreground mb-2">Class Details</h4>
+                  <p className="text-muted-foreground">Grade: {classDetails.grade}</p>
+                  <p className="text-muted-foreground">Class Code: {classDetails.classCode}</p>
+                  <p className="text-muted-foreground">Created: {new Date(classDetails.createdAt).toLocaleDateString()}</p>
                 </div>
               </div>
             </CardContent>
@@ -226,31 +278,31 @@ export default function ClassDetailPage() {
         </div>
 
         <div className="space-y-6">
-          <Card className="bg-white">
+          <Card className="bg-gradient-to-br from-background to-background/80 backdrop-blur-sm border border-primary/20 shadow-lg shadow-primary/10">
             <CardHeader>
-              <CardTitle className="text-[#1A1A1A]">Student Roster</CardTitle>
-              <CardDescription>Click on parent codes to copy them for sharing with parents</CardDescription>
+              <CardTitle className="text-xl font-semibold text-foreground">Student Roster</CardTitle>
+              <CardDescription className="text-muted-foreground">Click on parent codes to copy them for sharing with parents</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
                 {classDetails.studentClasses.map((studentClass) => (
-                  <div key={studentClass.student.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                  <div key={studentClass.student.id} className="flex items-center justify-between p-3 bg-gradient-to-br from-secondary/10 to-primary/10 rounded-lg backdrop-blur-sm hover:shadow-lg hover:shadow-secondary/20 transition-all duration-300">
                     <div className="flex items-center space-x-3">
-                      <div className="w-10 h-10 bg-[#3A6EA5] rounded-full flex items-center justify-center">
-                        <span className="text-white font-medium">
+                      <div className="w-10 h-10 bg-gradient-to-br from-primary to-accent rounded-full flex items-center justify-center shadow-lg shadow-primary/25">
+                        <span className="text-primary-foreground font-medium">
                           {studentClass.student.name.charAt(0).toUpperCase()}
                         </span>
                       </div>
                       <div>
-                        <p className="font-medium text-[#1A1A1A]">{studentClass.student.name}</p>
-                        <p className="text-sm text-gray-500">{studentClass.student.email}</p>
+                        <p className="font-medium text-foreground">{studentClass.student.name}</p>
+                        <p className="text-sm text-muted-foreground">{studentClass.student.email}</p>
                       </div>
                     </div>
                     <div className="flex items-center space-x-2">
                       <div className="text-right">
-                        <p className="text-xs text-gray-500 mb-1">Parent Code:</p>
+                        <p className="text-xs text-muted-foreground mb-1">Parent Code:</p>
                         <div className="flex items-center space-x-1">
-                          <code className="bg-white px-2 py-1 rounded text-sm font-mono border border-gray-200">
+                          <code className="bg-gradient-to-r from-muted/50 to-primary/10 px-2 py-1 rounded text-sm font-mono border border-primary/20">
                             {studentClass.student.parentCode || 'Not assigned'}
                           </code>
                           {studentClass.student.parentCode && (
@@ -258,7 +310,7 @@ export default function ClassDetailPage() {
                               size="sm"
                               variant="ghost"
                               onClick={() => copyParentCode(studentClass.student.parentCode!)}
-                              className="h-6 w-6 p-0"
+                              className="h-6 w-6 p-0 hover:bg-primary/10 transition-colors"
                             >
                               {copiedParentCode === studentClass.student.parentCode ? (
                                 <Check className="w-3 h-3 text-green-600" />
@@ -279,58 +331,58 @@ export default function ClassDetailPage() {
       </div>
 
       {/* Quick Stats */}
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-        <Card className="bg-white">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-6 mb-8 relative z-20">
+        <Card className="bg-gradient-to-br from-background to-background/80 backdrop-blur-sm border border-primary/20 shadow-lg shadow-primary/10 hover:shadow-xl hover:shadow-primary/20 transition-all duration-300 hover:scale-105">
           <CardContent className="p-6">
             <div className="flex items-center space-x-3">
-              <div className="w-12 h-12 bg-[#3A6EA5] rounded-lg flex items-center justify-center">
-                <BookOpen className="w-6 h-6 text-white" />
+              <div className="w-12 h-12 bg-gradient-to-br from-primary to-accent rounded-xl flex items-center justify-center shadow-lg shadow-primary/25">
+                <BookOpen className="w-6 h-6 text-primary-foreground" />
               </div>
               <div>
-                <p className="text-sm text-gray-600">Lessons</p>
-                <p className="text-2xl font-bold text-[#1A1A1A1A]">{classDetails._count.lessons}</p>
+                <p className="text-sm text-muted-foreground">Lessons</p>
+                <p className="text-2xl font-bold text-foreground">{classDetails._count.lessons}</p>
               </div>
             </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-white">
+        <Card className="bg-gradient-to-br from-background to-background/80 backdrop-blur-sm border border-secondary/20 shadow-lg shadow-secondary/10 hover:shadow-xl hover:shadow-secondary/20 transition-all duration-300 hover:scale-105">
           <CardContent className="p-6">
             <div className="flex items-center space-x-3">
-              <div className="w-12 h-12 bg-[#5DBB63] rounded-lg flex items-center justify-center">
-                <FileText className="w-6 h-6 text-white" />
+              <div className="w-12 h-12 bg-gradient-to-br from-secondary to-primary rounded-xl flex items-center justify-center shadow-lg shadow-secondary/25">
+                <FileText className="w-6 h-6 text-secondary-foreground" />
               </div>
               <div>
-                <p className="text-sm text-gray-600">Homework</p>
-                <p className="text-2xl font-bold text-[#1A1A1A1A]">{classDetails._count.homework}</p>
+                <p className="text-sm text-muted-foreground">Homework</p>
+                <p className="text-2xl font-bold text-foreground">{classDetails._count.homework}</p>
               </div>
             </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-white">
+        <Card className="bg-gradient-to-br from-background to-background/80 backdrop-blur-sm border border-accent/20 shadow-lg shadow-accent/10 hover:shadow-xl hover:shadow-accent/20 transition-all duration-300 hover:scale-105">
           <CardContent className="p-6">
             <div className="flex items-center space-x-3">
-              <div className="w-12 h-12 bg-[#FFC857] rounded-lg flex items-center justify-center">
-                <MessageSquare className="w-6 h-6 text-white" />
+              <div className="w-12 h-12 bg-gradient-to-br from-accent to-primary rounded-xl flex items-center justify-center shadow-lg shadow-accent/25">
+                <MessageSquare className="w-6 h-6 text-accent-foreground" />
               </div>
               <div>
-                <p className="text-sm text-gray-600">Quizzes</p>
-                <p className="text-2xl font-bold text-[#1A1A1A1A]">{classDetails._count.quizzes}</p>
+                <p className="text-sm text-muted-foreground">Quizzes</p>
+                <p className="text-2xl font-bold text-foreground">{classDetails._count.quizzes}</p>
               </div>
             </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-white">
+        <Card className="bg-gradient-to-br from-background to-background/80 backdrop-blur-sm border border-primary/20 shadow-lg shadow-primary/10 hover:shadow-xl hover:shadow-primary/20 transition-all duration-300 hover:scale-105">
           <CardContent className="p-6">
             <div className="flex items-center space-x-3">
-              <div className="w-12 h-12 bg-[#8B5CF6] rounded-lg flex items-center justify-center">
-                <Users className="w-6 h-6 text-white" />
+              <div className="w-12 h-12 bg-gradient-to-br from-primary/80 to-accent rounded-xl flex items-center justify-center shadow-lg shadow-primary/25">
+                <Users className="w-6 h-6 text-primary-foreground" />
               </div>
               <div>
-                <p className="text-sm text-gray-600">Announcements</p>
-                <p className="text-2xl font-bold text-[#1A1A1A1A]">{classDetails._count.announcements}</p>
+                <p className="text-sm text-muted-foreground">Announcements</p>
+                <p className="text-2xl font-bold text-foreground">{classDetails._count.announcements}</p>
               </div>
             </div>
           </CardContent>
@@ -338,37 +390,37 @@ export default function ClassDetailPage() {
       </div>
 
       {/* Action Buttons */}
-      <div className="max-w-7xl mx-auto">
-        <Card className="bg-white">
+      <div className="max-w-7xl mx-auto relative z-20">
+        <Card className="bg-gradient-to-br from-background to-background/80 backdrop-blur-sm border border-primary/20 shadow-lg shadow-primary/10">
           <CardHeader>
-            <CardTitle className="text-[#1A1A1A]">Class Management</CardTitle>
-            <CardDescription>Tools and options for managing your class</CardDescription>
+            <CardTitle className="text-xl font-semibold text-foreground animate-title-glow">Class Management</CardTitle>
+            <CardDescription className="text-muted-foreground">Tools and options for managing your class</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-6">
               <Button 
-                className="bg-[#3A6EA5] hover:bg-[#2E5A8A]"
+                className="bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-primary-foreground border-0 shadow-lg shadow-primary/25 hover:shadow-primary/40 transition-all duration-300"
                 onClick={() => setShowCreateLesson(true)}
               >
                 <Plus className="w-4 h-4 mr-2" />
                 Create Lesson
               </Button>
               <Button 
-                className="bg-[#5DBB63] hover:bg-[#4FA052]"
+                className="bg-gradient-to-r from-secondary to-primary hover:from-secondary/90 hover:to-primary/90 text-secondary-foreground border-0 shadow-lg shadow-secondary/25 hover:shadow-secondary/40 transition-all duration-300"
                 onClick={() => setShowCreateHomework(true)}
               >
                 <Plus className="w-4 h-4 mr-2" />
                 Add Homework
               </Button>
               <Button 
-                className="bg-[#FFC857] hover:bg-[#E6B547]"
+                className="bg-gradient-to-r from-accent to-primary hover:from-accent/90 hover:to-primary/90 text-accent-foreground border-0 shadow-lg shadow-accent/25 hover:shadow-accent/40 transition-all duration-300"
                 onClick={() => setShowCreateQuiz(true)}
               >
                 <Plus className="w-4 h-4 mr-2" />
                 Create Quiz
               </Button>
               <Button 
-                className="bg-[#8B5CF6] hover:bg-[#7C3AED]"
+                className="bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-primary-foreground border-0 shadow-lg shadow-primary/25 hover:shadow-primary/40 transition-all duration-300"
                 onClick={() => setShowCreateAnnouncement(true)}
               >
                 <Plus className="w-4 h-4 mr-2" />
@@ -376,7 +428,7 @@ export default function ClassDetailPage() {
               </Button>
               <Button 
                 variant="outline"
-                className="border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white"
+                className="border-purple-600/20 text-purple-600 hover:bg-purple-600/10 hover:text-purple-600 backdrop-blur-sm transition-all duration-300 shadow-lg shadow-purple/10"
                 onClick={() => setShowAnalytics(true)}
               >
                 <BarChart3 className="w-4 h-4 mr-2" />
@@ -384,7 +436,7 @@ export default function ClassDetailPage() {
               </Button>
               <Button 
                 variant="outline"
-                className="border-green-600 text-green-600 hover:bg-green-600 hover:text-white"
+                className="border-green-600/20 text-green-600 hover:bg-green-600/10 hover:text-green-600 backdrop-blur-sm transition-all duration-300 shadow-lg shadow-green/10"
                 onClick={handleExportData}
               >
                 <Download className="w-4 h-4 mr-2" />
@@ -392,7 +444,7 @@ export default function ClassDetailPage() {
               </Button>
               <Button 
                 variant="outline"
-                className="border-red-600 text-red-600 hover:bg-red-600 hover:text-white"
+                className="border-destructive/20 text-destructive hover:bg-destructive/10 hover:text-destructive-foreground backdrop-blur-sm transition-all duration-300 shadow-lg shadow-destructive/10"
                 onClick={() => setDeleteDialogOpen(true)}
               >
                 <Trash2 className="w-4 h-4 mr-2" />
@@ -405,15 +457,18 @@ export default function ClassDetailPage() {
       </div>
 
       {/* Recent Activity */}
-      <div className="max-w-7xl mx-auto">
-        <Card className="bg-white">
+      <div className="max-w-7xl mx-auto relative z-20">
+        <Card className="bg-gradient-to-br from-background to-background/80 backdrop-blur-sm border border-primary/20 shadow-lg shadow-primary/10">
           <CardHeader>
-            <CardTitle className="text-[#1A1A1A]">Recent Activity</CardTitle>
-            <CardDescription>Latest content and activity in your class</CardDescription>
+            <CardTitle className="text-xl font-semibold text-foreground animate-title-glow">Recent Activity</CardTitle>
+            <CardDescription className="text-muted-foreground">Latest content and activity in your class</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="text-center py-8">
-              <p className="text-gray-500">Recent activity will appear here</p>
+              <div className="w-16 h-16 bg-gradient-to-br from-primary/20 to-accent/20 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg shadow-primary/25">
+                <BookOpen className="w-8 h-8 text-primary" />
+              </div>
+              <p className="text-muted-foreground">Recent activity will appear here</p>
             </div>
           </CardContent>
         </Card>
@@ -580,6 +635,21 @@ export default function ClassDetailPage() {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
+      {/* Custom Styles */}
+      <style jsx>{`
+        @keyframes title-glow {
+          0%, 100% { 
+            text-shadow: 0 0 20px rgba(var(--primary), 0.5); 
+          }
+          50% { 
+            text-shadow: 0 0 30px rgba(var(--primary), 0.8); 
+          }
+        }
+
+        .animate-title-glow {
+          animation: title-glow 3s ease-in-out infinite;
+        }
+      `}</style>
     </div>
   )
 }
