@@ -126,10 +126,10 @@ export default function CreateLessonModal({ isOpen, onClose, classId, onSuccess 
           )}
 
           <div className="flex justify-end space-x-3 pt-4">
-            <Button type="button" variant="outline" onClick={onClose}>
+            <Button type="button" variant="outline" onClick={onClose} className="border-border text-foreground hover:bg-accent hover:text-accent-foreground">
               Cancel
             </Button>
-            <Button type="submit" disabled={loading}>
+            <Button type="submit" disabled={loading} className="bg-primary hover:bg-primary/90 text-primary-foreground">
               {loading ? 'Creating...' : 'Create Lesson'}
             </Button>
           </div>

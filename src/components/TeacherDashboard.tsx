@@ -161,8 +161,8 @@ export default function TeacherDashboard() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-[#3A6EA5]"></div>
+      <div className="flex items-center justify-center min-h-screen bg-background">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary"></div>
       </div>
     )
   }
@@ -183,7 +183,7 @@ export default function TeacherDashboard() {
             <Button 
               onClick={() => setShowMessages(true)}
               variant="outline"
-              className="border-primary text-primary hover:bg-primary hover:text-primary-foreground"
+              className="border-destructive text-destructive hover:bg-destructive hover:text-primary-foreground"
             >
               <MessageSquare className="w-4 h-4 mr-2" />
               Messages
@@ -230,7 +230,7 @@ export default function TeacherDashboard() {
                       required
                     />
                   </div>
-                  <Button type="submit" className="w-full bg-secondary hover:bg-secondary/90 text-secondary-foreground">
+                  <Button type="submit" className="w-full bg-primary hover:bg-primary/90 text-primary-foreground">
                     Create Class
                   </Button>
                 </form>
@@ -307,18 +307,18 @@ export default function TeacherDashboard() {
 
       {/* Classes Grid */}
       <div className="max-w-7xl mx-auto">
-        <h2 className="text-2xl font-bold text-[#1A1A1A] mb-6">Your Classes</h2>
+        <h2 className="text-2xl font-bold text-foreground mb-6">Your Classes</h2>
         
         {classes.length === 0 ? (
-          <Card className="bg-white text-center p-12">
-            <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <BookOpen className="w-8 h-8 text-gray-400" />
+          <Card className="bg-card text-center p-12">
+            <div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center mx-auto mb-4">
+              <BookOpen className="w-8 h-8 text-muted-foreground" />
             </div>
-            <h3 className="text-xl font-semibold text-[#1A1A1A] mb-2">No classes yet</h3>
-            <p className="text-gray-600 mb-6">Create your first class to get started</p>
+            <h3 className="text-xl font-semibold text-foreground mb-2">No classes yet</h3>
+            <p className="text-muted-foreground mb-6">Create your first class to get started</p>
             <Button 
               onClick={() => setCreateClassOpen(true)}
-              className="bg-[#3A6EA5] hover:bg-[#2E5A8A]"
+              className="bg-primary hover:bg-primary/90 text-primary-foreground"
             >
               <Plus className="w-4 h-4 mr-2" />
               Create Your First Class
@@ -327,14 +327,14 @@ export default function TeacherDashboard() {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {classes.map((classItem) => (
-              <Card key={classItem.id} className="bg-white hover:shadow-lg transition-shadow">
+              <Card key={classItem.id} className="bg-card hover:shadow-lg transition-shadow">
                 <CardHeader>
                   <div className="flex justify-between items-start">
                     <div>
-                      <CardTitle className="text-lg text-[#1A1A1A]">{classItem.name}</CardTitle>
+                      <CardTitle className="text-lg text-foreground">{classItem.name}</CardTitle>
                       <CardDescription>{classItem.grade}</CardDescription>
                     </div>
-                    <Badge variant="secondary" className="bg-[#E8EEF4] text-[#3A6EA5]">
+                    <Badge variant="secondary" className="bg-secondary/20 text-secondary-foreground">
                       {classItem.studentClasses.length} students
                     </Badge>
                   </div>
@@ -342,9 +342,9 @@ export default function TeacherDashboard() {
                 <CardContent>
                   <div className="space-y-3">
                     <div className="flex items-center justify-between">
-                      <span className="text-sm text-gray-600">Class Code:</span>
+                      <span className="text-sm text-muted-foreground">Class Code:</span>
                       <div className="flex items-center space-x-2">
-                        <code className="bg-gray-100 px-2 py-1 rounded text-sm font-mono">
+                        <code className="bg-muted px-2 py-1 rounded text-sm font-mono">
                           {classItem.classCode}
                         </code>
                         <Button
@@ -364,26 +364,26 @@ export default function TeacherDashboard() {
                     
                     <div className="grid grid-cols-2 gap-4 text-sm">
                       <div className="flex items-center space-x-2">
-                        <BookOpen className="w-4 h-4 text-[#3A6EA5]" />
+                        <BookOpen className="w-4 h-4 text-primary" />
                         <span>{classItem._count.lessons} lessons</span>
                       </div>
                       <div className="flex items-center space-x-2">
-                        <FileText className="w-4 h-4 text-[#5DBB63]" />
+                        <FileText className="w-4 h-4 text-secondary" />
                         <span>{classItem._count.homework} homework</span>
                       </div>
                       <div className="flex items-center space-x-2">
-                        <MessageSquare className="w-4 h-4 text-[#FFC857]" />
+                        <MessageSquare className="w-4 h-4 text-accent" />
                         <span>{classItem._count.quizzes} quizzes</span>
                       </div>
                       <div className="flex items-center space-x-2">
-                        <Users className="w-4 h-4 text-[#8B5CF6]" />
+                        <Users className="w-4 h-4 text-primary" />
                         <span>{classItem._count.announcements} announcements</span>
                       </div>
                     </div>
 
                     <div className="pt-3 border-t flex gap-2">
                       <Button 
-                        className="flex-1 bg-[#3A6EA5] hover:bg-[#2E5A8A]"
+                        className="flex-1 bg-primary hover:bg-primary/90 text-primary-foreground"
                         onClick={() => router.push(`/class/${classItem.id}`)}
                       >
                         Manage Class
@@ -392,7 +392,7 @@ export default function TeacherDashboard() {
                         variant="outline"
                         size="sm"
                         onClick={() => confirmDeleteClass(classItem)}
-                        className="border-red-600 text-red-600 hover:bg-red-600 hover:text-white"
+                        className="border-destructive text-destructive hover:bg-destructive hover:text-primary-foreground"
                       >
                         <Trash2 className="w-4 h-4" />
                       </Button>

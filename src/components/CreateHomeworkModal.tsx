@@ -135,10 +135,10 @@ export default function CreateHomeworkModal({ isOpen, onClose, classId, onSucces
           </div>
 
           <div className="flex justify-end space-x-3 pt-4">
-            <Button type="button" variant="outline" onClick={onClose}>
+            <Button type="button" variant="outline" onClick={onClose} className="border-border text-foreground hover:bg-accent hover:text-accent-foreground">
               Cancel
             </Button>
-            <Button type="submit" disabled={loading}>
+            <Button type="submit" disabled={loading} className="bg-secondary hover:bg-secondary/90 text-secondary-foreground">
               {loading ? 'Creating...' : 'Create Homework'}
             </Button>
           </div>
